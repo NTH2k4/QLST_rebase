@@ -38,8 +38,16 @@ namespace QLST_rebase
         {
             getId(searchId.ToString());
             txtTenHang.Text = tenHang;
-            DateTime parseNgayNhap = DateTime.TryParse(ngayNhap, out parseNgayNhap) ? parseNgayNhap : DateTime.Now;
-            dtNgayNhap.Value = (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate ? parseNgayNhap : dtNgayNhap.Value);
+            DateTime parseNgayNhap = DateTime.TryParse(ngayNhap, out parseNgayNhap) ? parseNgayNhap : dtNgayNhap.Value;
+            //dtNgayNhap.Value = (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate ? parseNgayNhap : dtNgayNhap.Value);
+            if (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate)
+            {
+                dtNgayNhap.Value = parseNgayNhap;
+            }
+            else
+            {
+                dtNgayNhap.Tag = parseNgayNhap;
+            }
             txtGiaTien.Text = giaTien;
             decimal parsedSoLuong = decimal.TryParse(soLuong, out parsedSoLuong) ? parsedSoLuong : NmrSoLuong.Value;
             NmrSoLuong.Value = (parsedSoLuong >= NmrSoLuong.Minimum && parsedSoLuong <= NmrSoLuong.Maximum ? parsedSoLuong : NmrSoLuong.Value);
@@ -58,8 +66,54 @@ namespace QLST_rebase
             return check;
         }
 
+        private string ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtTenHang.Text))
+            {
+                return "Tên hàng không được để trống.";
+            }
+
+            if (dtNgayNhap.Tag != null && dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate)
+            {
+                return "Ngày nhập không hợp lệ.";
+            }
+
+            if (!double.TryParse(txtGiaTien.Text, out double price) || price <= 0)
+            {
+                return "Giá tiền phải là số dương.";
+            }
+
+            if (NmrSoLuong.Value <= 0)
+            {
+                return "Số lượng phải lớn hơn 0.";
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDonViTinh.Text))
+            {
+                return "Đơn vị tính không được để trống.";
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
+            {
+                return "Nhà cung cấp không được để trống.";
+            }
+
+            if (string.IsNullOrWhiteSpace(cbLoaiHang.Text))
+            {
+                return "Loại hàng không được để trống.";
+            }
+
+            return string.Empty;
+        }
+
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            string error = ValidateInputs();
+            if (!string.IsNullOrWhiteSpace(error))
+            {
+                MessageBox.Show(error);
+                return;
+            }
             using (DataDBContext context = new())
             {
                 goods goods = context.goodss.FirstOrDefault(p => p.goodsId == int.Parse(txtMaHang.Text));
@@ -82,6 +136,7 @@ namespace QLST_rebase
                     }
                     check = context.SaveChanges() > 0;
                     MessageBox.Show("Sửa thành công!");
+                    MessageBox.Show(dtNgayNhap.Value.ToString() + "\n" + dtNgayNhap.Tag + "\n" + dtNgayNhap.MinDate.ToString() + "\n" + dtNgayNhap.MaxDate.ToString());
                 }
             }
         }
