@@ -127,14 +127,14 @@ namespace QLST_rebase
                         goods.unit = txtDonViTinh.Text;
                         goods.suppiler = txtNhaCC.Text;
                         goods.type = cbLoaiHang.Text;
+                        check = context.SaveChanges() > 0;
+                        MessageBox.Show("Sửa thành công!");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Vui lòng kiểm tra lại thông tin\n");
+                        MessageBox.Show("Sửa không thành công!\nLỗi: " + ex.Message);
                         return;
                     }
-                    check = context.SaveChanges() > 0;
-                    MessageBox.Show("Sửa thành công!");
                 }
             }
         }
