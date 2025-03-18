@@ -40,6 +40,14 @@ namespace QLST_rebase
             txtTenHang.Text = tenHang;
             DateTime parseNgayNhap = DateTime.TryParse(ngayNhap, out parseNgayNhap) ? parseNgayNhap : DateTime.Now;
             dtNgayNhap.Value = (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate ? parseNgayNhap : dtNgayNhap.Value);
+            if (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate)
+            {
+                dtNgayNhap.Value = parseNgayNhap;
+            }
+            else
+            {
+                dtNgayNhap.Tag = parseNgayNhap;
+            }
             txtGiaTien.Text = giaTien;
             decimal parsedSoLuong = decimal.TryParse(soLuong, out parsedSoLuong) ? parsedSoLuong : NmrSoLuong.Value;
             NmrSoLuong.Value = (parsedSoLuong >= NmrSoLuong.Minimum && parsedSoLuong <= NmrSoLuong.Maximum ? parsedSoLuong : NmrSoLuong.Value);
