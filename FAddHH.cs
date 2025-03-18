@@ -25,7 +25,6 @@ namespace QLST_rebase
         {
             txtTenHang.Text = tenHang;
             DateTime parseNgayNhap = DateTime.TryParse(ngayNhap, out parseNgayNhap) ? parseNgayNhap : dtNgayNhap.Value;
-            //dtNgayNhap.Value = (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate ? parseNgayNhap : dtNgayNhap.Value);
             if (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate)
             {
                 dtNgayNhap.Value = parseNgayNhap;

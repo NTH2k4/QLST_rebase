@@ -39,7 +39,6 @@ namespace QLST_rebase
             getId(searchId.ToString());
             txtTenHang.Text = tenHang;
             DateTime parseNgayNhap = DateTime.TryParse(ngayNhap, out parseNgayNhap) ? parseNgayNhap : dtNgayNhap.Value;
-            //dtNgayNhap.Value = (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate ? parseNgayNhap : dtNgayNhap.Value);
             if (parseNgayNhap >= dtNgayNhap.MinDate && parseNgayNhap <= dtNgayNhap.MaxDate)
             {
                 dtNgayNhap.Value = parseNgayNhap;
@@ -73,7 +72,7 @@ namespace QLST_rebase
                 return "Tên hàng không được để trống.";
             }
 
-            if (dtNgayNhap.Tag != null && dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate)
+            if (dtNgayNhap.Tag != null || dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate)
             {
                 return "Ngày nhập không hợp lệ.";
             }
@@ -136,7 +135,6 @@ namespace QLST_rebase
                     }
                     check = context.SaveChanges() > 0;
                     MessageBox.Show("Sửa thành công!");
-                    MessageBox.Show(dtNgayNhap.Value.ToString() + "\n" + dtNgayNhap.Tag + "\n" + dtNgayNhap.MinDate.ToString() + "\n" + dtNgayNhap.MaxDate.ToString());
                 }
             }
         }
