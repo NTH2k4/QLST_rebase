@@ -53,11 +53,11 @@ namespace QLST_rebase
 
         private string ValidateInputs()
         {
-            // Kiểm tra tên hàng không chứa ký tự đặc biệt
             if (txtTenHang.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
             {
                 return "Tên hàng không được chứa ký tự đặc biệt.";
             }
+
             if (string.IsNullOrWhiteSpace(txtTenHang.Text))
             {
                 return "Tên hàng không được để trống.";
