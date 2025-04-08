@@ -88,9 +88,9 @@ namespace QLST_rebase
                 return "Số lượng phải lớn hơn 0.";
             }
             
-            if (string.IsNullOrWhiteSpace(txtDonViTinh.Text) || !int.TryParse(txtDonViTinh.Text, out int unit) || unit <= 0)
+            if (string.IsNullOrWhiteSpace(txtDonViTinh.Text))
             {
-                return "Đơn vị tính không hợp lê hoặc không được để trống.";
+                return "Đơn vị tính không được để trống.";
             }
 
             if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
