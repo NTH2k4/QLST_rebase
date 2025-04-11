@@ -224,7 +224,7 @@
             NmrSoLuong.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             NmrSoLuong.Location = new Point(552, 54);
             NmrSoLuong.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
-            NmrSoLuong.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            NmrSoLuong.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             NmrSoLuong.Name = "NmrSoLuong";
             NmrSoLuong.Size = new Size(190, 25);
             NmrSoLuong.StateActive.Content.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
