@@ -87,10 +87,20 @@ namespace QLST_rebase
             {
                 return "Số lượng phải lớn hơn 0.";
             }
-            
+
+            if (txtDonViTinh.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            {
+                return "Đơn vị tính không được chứa ký tự đặc biệt.";
+            }
+
             if (string.IsNullOrWhiteSpace(txtDonViTinh.Text))
             {
                 return "Đơn vị tính không được để trống.";
+            }
+
+            if (txtNhaCC.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            {
+                return "Nhà cung cấp không được chứa ký tự đặc biệt.";
             }
 
             if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
@@ -111,7 +121,7 @@ namespace QLST_rebase
         {
             string errorMessage = ValidateInputs();
             if (!string.IsNullOrWhiteSpace(errorMessage)) {
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Thông báo");
                 return;
             }
             try
@@ -130,18 +140,18 @@ namespace QLST_rebase
                     };
                     context.goodss.Add(goods);
                     check = context.SaveChanges() > 0;
-                    MessageBox.Show("Thêm thành công!");
+                    MessageBox.Show("Thêm thành công!", "Thông báo");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Thêm không thành công!\nLỗi: " + ex.Message);
+                MessageBox.Show("Thêm không thành công!\nLỗi: " + ex.Message, "Thông báo");
             }
         }
 
         private void FAddHH_Load(object sender, EventArgs e)
         {
-            cbLoaiHang.SelectedItem = "Thực phẩm";
+            //cbLoaiHang.SelectedItem = "Thực phẩm";
         }
     }
 }
