@@ -53,7 +53,7 @@ namespace QLST_rebase
                             {
                                 context.goodss.Remove(goods);
                                 context.SaveChanges();
-                                MessageBox.Show("Đã xoá thành công!");
+                                MessageBox.Show("Đã xoá thành công!", "Thông báo");
                                 LoadDgv();
                             }
                         }
