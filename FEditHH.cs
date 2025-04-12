@@ -77,6 +77,11 @@ namespace QLST_rebase
                 return "Tên hàng không được để trống.";
             }
 
+            if (txtTenHang.Text.Length < 2 || txtTenHang.Text.Length > 30)
+            {
+                return "Tên hàng phải từ 2 đến 30 ký tự.";
+            }
+
             if (dtNgayNhap.Tag != null || dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate || dtNgayNhap.Value > DateTime.Now)
             {
                 return "Ngày nhập không hợp lệ.";
@@ -90,6 +95,11 @@ namespace QLST_rebase
             if (!double.TryParse(txtGiaTien.Text, out double price) || price <= 0)
             {
                 return "Giá tiền phải lớn hơn 0.";
+            }
+
+            if (price < 1000 || price > 100000000)
+            {
+                return "Giá tiền phải nằm trong khoảng từ 1.000 đến 100.000.000.";
             }
 
             if (!int.TryParse(NmrSoLuong.Value.ToString(), out int quantity))
@@ -112,6 +122,11 @@ namespace QLST_rebase
                 return "Đơn vị tính không được để trống.";
             }
 
+            if (txtDonViTinh.Text.Length < 2 || txtDonViTinh.Text.Length > 30)
+            {
+                return "Đơn vị tính phải từ 2 đến 30 ký tự.";
+            }
+
             if (txtNhaCC.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
             {
                 return "Nhà cung cấp không được chứa ký tự đặc biệt.";
@@ -120,6 +135,11 @@ namespace QLST_rebase
             if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
             {
                 return "Nhà cung cấp không được để trống.";
+            }
+
+            if (txtNhaCC.Text.Length < 2 || txtNhaCC.Text.Length > 30)
+            {
+                return "Nhà cung cấp phải từ 2 đến 30 ký tự.";
             }
 
             if (string.IsNullOrWhiteSpace(cbLoaiHang.Text))
