@@ -67,19 +67,34 @@ namespace QLST_rebase
 
         private string ValidateInputs()
         {
+            if (txtTenHang.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            {
+                return "Tên hàng không được chứa ký tự đặc biệt.";
+            }
+
             if (string.IsNullOrWhiteSpace(txtTenHang.Text))
             {
                 return "Tên hàng không được để trống.";
             }
 
-            if (dtNgayNhap.Tag != null || dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate)
+            if (dtNgayNhap.Tag != null || dtNgayNhap.Value < dtNgayNhap.MinDate || dtNgayNhap.Value > dtNgayNhap.MaxDate || dtNgayNhap.Value > DateTime.Now)
             {
                 return "Ngày nhập không hợp lệ.";
             }
 
+            if (string.IsNullOrWhiteSpace(txtGiaTien.Text) || !double.TryParse(txtGiaTien.Text, out double parsedPrice))
+            {
+                return "Giá tiền không hợp lệ.";
+            }
+
             if (!double.TryParse(txtGiaTien.Text, out double price) || price <= 0)
             {
-                return "Giá tiền phải là số dương.";
+                return "Giá tiền phải lớn hơn 0.";
+            }
+
+            if (!int.TryParse(NmrSoLuong.Value.ToString(), out int quantity))
+            {
+                return "Số lượng không hợp lệ.";
             }
 
             if (NmrSoLuong.Value <= 0)
@@ -87,9 +102,19 @@ namespace QLST_rebase
                 return "Số lượng phải lớn hơn 0.";
             }
 
+            if (txtDonViTinh.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            {
+                return "Đơn vị tính không được chứa ký tự đặc biệt.";
+            }
+
             if (string.IsNullOrWhiteSpace(txtDonViTinh.Text))
             {
                 return "Đơn vị tính không được để trống.";
+            }
+
+            if (txtNhaCC.Text.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            {
+                return "Nhà cung cấp không được chứa ký tự đặc biệt.";
             }
 
             if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
@@ -110,7 +135,7 @@ namespace QLST_rebase
             string error = ValidateInputs();
             if (!string.IsNullOrWhiteSpace(error))
             {
-                MessageBox.Show(error);
+                MessageBox.Show(error, "Thông báo");
                 return;
             }
             using (DataDBContext context = new())
@@ -128,11 +153,11 @@ namespace QLST_rebase
                         goods.suppiler = txtNhaCC.Text;
                         goods.type = cbLoaiHang.Text;
                         check = context.SaveChanges() > 0;
-                        MessageBox.Show("Sửa thành công!");
+                        MessageBox.Show("Sửa thành công!", "Thông báo");
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Sửa không thành công!\nLỗi: " + ex.Message);
+                        MessageBox.Show("Sửa không thành công!\nLỗi: " + ex.Message, "Thông báo");
                         return;
                     }
                 }
