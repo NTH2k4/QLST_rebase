@@ -85,12 +85,6 @@ namespace QLST_rebase
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            string error = ValidateInputs();
-            if (!string.IsNullOrWhiteSpace(error))
-            {
-                MessageBox.Show(error, "Thông báo");
-                return;
-            }
             using (DataDBContext context = new())
             {
                 goods goods = context.goodss.FirstOrDefault(p => p.goodsId == int.Parse(txtMaHang.Text));
@@ -111,7 +105,7 @@ namespace QLST_rebase
                         MessageBox.Show("Vui lòng kiểm tra lại thông tin\n");
                         return;
                     }
-                    check = context.SaveChanges() > 0;
+                    context.SaveChanges();
                     MessageBox.Show("Sửa thành công!");
                 }
             }

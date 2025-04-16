@@ -71,12 +71,6 @@ namespace QLST_rebase
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            string error = ValidateInputs();
-            if (!string.IsNullOrWhiteSpace(error))
-            {
-                MessageBox.Show(error, "Thông báo");
-                return;
-            }
             try
             {
                 using (DataDBContext context = new())
@@ -92,7 +86,7 @@ namespace QLST_rebase
                         type = cbLoaiHang.Text
                     };
                     context.goodss.Add(goods);
-                    check = context.SaveChanges() > 0;
+                    context.SaveChanges();
                     MessageBox.Show("Thêm thành công!");
                 }
             }
