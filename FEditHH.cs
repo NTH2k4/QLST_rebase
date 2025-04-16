@@ -105,7 +105,7 @@ namespace QLST_rebase
                         MessageBox.Show("Vui lòng kiểm tra lại thông tin\n");
                         return;
                     }
-                    context.SaveChanges();
+                    check = context.SaveChanges() > 0;
                     MessageBox.Show("Sửa thành công!");
                 }
             }

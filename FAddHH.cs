@@ -34,6 +34,7 @@ namespace QLST_rebase
             {
                 dtNgayNhap.Tag = parseNgayNhap;
             }
+            //double parsedGiaTien = double.TryParse(giaTien, out parsedGiaTien) ? parsedGiaTien : 0;
             txtGiaTien.Text = giaTien;
             decimal parsedSoLuong = decimal.TryParse(soLuong, out parsedSoLuong) ? parsedSoLuong : NmrSoLuong.Value;
             NmrSoLuong.Value = (parsedSoLuong >= NmrSoLuong.Minimum && parsedSoLuong <= NmrSoLuong.Maximum ? parsedSoLuong : NmrSoLuong.Value);
@@ -86,7 +87,7 @@ namespace QLST_rebase
                         type = cbLoaiHang.Text
                     };
                     context.goodss.Add(goods);
-                    context.SaveChanges();
+                    check = context.SaveChanges() > 0;
                     MessageBox.Show("Thêm thành công!");
                 }
             }
