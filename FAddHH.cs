@@ -52,8 +52,31 @@ namespace QLST_rebase
             return check;
         }
 
+        private string ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtTenHang.Text))
+                return "Tên hàng không được để trống.";
+            if (string.IsNullOrWhiteSpace(txtGiaTien.Text))
+                return "Giá tiền không được để trống.";
+            if (string.IsNullOrWhiteSpace(NmrSoLuong.Text))
+                return "Số lượng không được để trống.";
+            if (string.IsNullOrWhiteSpace(txtDonViTinh.Text))
+                return "Đơn vị tính không được để trống.";
+            if (string.IsNullOrWhiteSpace(txtNhaCC.Text))
+                return "Nhà cung cấp không được để trống.";
+            if (string.IsNullOrWhiteSpace(cbLoaiHang.Text))
+                return "Loại hàng không được để trống.";
+            return string.Empty;
+        }
+
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            string error = ValidateInputs();
+            if (!string.IsNullOrWhiteSpace(error))
+            {
+                MessageBox.Show(error, "Thông báo");
+                return;
+            }
             try
             {
                 using (DataDBContext context = new())
